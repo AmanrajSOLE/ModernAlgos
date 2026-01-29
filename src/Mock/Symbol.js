@@ -1,0 +1,7 @@
+export const SYMBOL_LOTS = {
+  NIFTY: 65,
+  BANKNIFTY: 30,
+  RELIANCE: 500,
+  SBIN: 750,
+  TATASTEEL: 5500
+};
