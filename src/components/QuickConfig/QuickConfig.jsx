@@ -85,7 +85,6 @@ const QuickConfigurations = ({ onSelect }) => {
                 {config.label}
               </Typography>
 
-              {/* Image */}
               
             </CardActionArea>
           </Card>

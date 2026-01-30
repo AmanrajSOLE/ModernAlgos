@@ -9,34 +9,24 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-const SYMBOL_LOT_MAP = {
-  NIFTY: 65,
-  BANKNIFTY: 30,
-  RELIANCE: 500,
-  SBIN: 750,
-  TATASTEEL: 5500,
-};
-
-const symbols = Object.keys(SYMBOL_LOT_MAP);
-
 const SearchBar = ({
+  symbols,
   symbol,
-  setSymbol,
+  onSymbolChange,
   mode,
   setMode,
   lotSize,
-  setLotSize,
 }) => {
+
   const handleSymbolChange = (_, newValue) => {
     if (!newValue) return;
-    setSymbol(newValue);
-    setLotSize(SYMBOL_LOT_MAP[newValue]);
+    onSymbolChange(newValue);
   };
 
   return (
     <Box
       display="flex"
-      justifyContent="flex-end"   // ✅ push all to right
+      justifyContent="flex-end"
       alignItems="center"
       gap={4}
       flexWrap="wrap"
@@ -45,10 +35,8 @@ const SearchBar = ({
       borderRadius={2}
       sx={{ backgroundColor: "#111" }}
     >
-      {/* 🔍 Searchable Symbol Input */}
-      
 
-      {/* Intraday / Positional Toggle */}
+      {/* Toggle */}
       <ToggleButtonGroup
         value={mode}
         exclusive
@@ -73,11 +61,11 @@ const SearchBar = ({
         <ToggleButton value="Positional">Positional</ToggleButton>
       </ToggleButtonGroup>
 
+      {/* Symbol Search */}
       <Autocomplete
         options={symbols}
         value={symbol}
         onChange={handleSymbolChange}
-        freeSolo={false}
         size="small"
         sx={{ minWidth: 200 }}
         renderInput={(params) => (
@@ -90,10 +78,7 @@ const SearchBar = ({
               disableUnderline: true,
               startAdornment: (
                 <>
-                  <SearchIcon
-                    fontSize="small"
-                    sx={{ color: "#888", mr: 1 }}
-                  />
+                  <SearchIcon fontSize="small" sx={{ color: "#888", mr: 1 }} />
                   {params.InputProps.startAdornment}
                 </>
               ),
@@ -107,21 +92,16 @@ const SearchBar = ({
             }}
           />
         )}
-        ListboxProps={{
-          sx: {
-            backgroundColor: "#111",
-            color: "#fff",
-          },
-        }}
       />
 
-      {/* Lot Size */}
+      {/* Lot Size Display */}
       <Typography variant="body2" sx={{ color: "#aaa" }}>
-        Lot Size:{" "}
-        <Box component="span" sx={{ color: "#fff", fontWeight: 600 }}>
+        Lot Size:
+        <Box component="span" sx={{ color: "#fff", fontWeight: 600, ml: 1 }}>
           {lotSize}
         </Box>
       </Typography>
+
     </Box>
   );
 };
